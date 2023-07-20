@@ -1,0 +1,66 @@
+body {
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #000; */
+  margin: 0;
+  padding: 0 30vw;
+  overflow: hidden;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+p {
+    color: white;
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    /* width: 40vw; */
+}
+.scores {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    width: 40vw;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+#gameCanvas {
+  width: 40vw;
+  height: 100vh;
+  margin-top: -3rem;
+}
+.game-over {
+    position: absolute;
+    top: 35rem;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    width: 40vw;
+    margin-top: -25rem;
+    color: #FA511E;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.refresh_icon {
+    /* display: none; */
+    cursor: pointer;
+    height: 48px;
+    margin-left: 1rem;
+}
+#caughtCount {
+    margin-left: 1rem;
+}
+#heartContainer {
+    margin-right: 1rem;
+}
+#level {
+    margin: 0;
+    margin-left: 1rem;
+    color: #FA511E;
+    font-size: 1.5rem;
+    font-variant: small-caps;
+    font-weight: 600;
+}
