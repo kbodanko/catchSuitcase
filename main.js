@@ -5,7 +5,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const backgroundImage = new Image();
-backgroundImage.src = 'chuteBg.png';
+backgroundImage.src = 'bg.png';
 
 let level = 1;
 let backgroundSpeed = 1; // Prędkość przesuwania tła
@@ -28,17 +28,19 @@ function drawBackground() {
 
 const player = {
   x: canvas.width / 2,
-  y: canvas.height - 50,
-  width: 600,
-  height: 20,
+  y: canvas.height - 180,
+  width: 400,
+  height: 150,
   dx: 2,
 };
 
 const objects = [];
 
+const playerImage = new Image();
+playerImage.src = 'wojtek_player.png';
+
 function drawPlayer() {
-  ctx.fillStyle = '#FA511E';
-  ctx.fillRect(player.x, player.y, player.width, player.height);
+  ctx.drawImage(playerImage, player.x, player.y, player.width, player.height);
 }
 
 function clearScreen() {
@@ -79,6 +81,15 @@ let droppedCount = 0;
 let heartIcons = [];
 const heartContainer = document.getElementById('heartContainer');
 
+function createHeartIcons() {
+    for (let i = 0; i < 5; i++) {
+      let heartIcon = document.createElement('img');
+      heartIcon.src = 'heart.png';
+      heartIcon.classList.add('heart-icon');
+      heartIcons.push(heartIcon);
+      heartContainer.appendChild(heartIcon);
+    }
+  }
 function detectCollision(object, player) {
   if (
     object.x < player.x + player.width &&
@@ -86,13 +97,21 @@ function detectCollision(object, player) {
     object.y < player.y + 50 &&
     object.y + object.height > player.y
   ) {
+    if (object.image.src.includes('heart.png')) {
+        let heartIcon = document.createElement('img');
+      heartIcon.src = 'heart.png';
+      heartIcon.classList.add('heart-icon');
+      heartIcons.push(heartIcon); // Dodaj nowe serce do heartIcons
+      heartContainer.appendChild(heartIcon);
+
+    }
     return true;
   }
   return false;
 }
 
 let maxObjects = 6; // Maksymalna liczba obiektów na ekranie
-
+let objectCounter = 0; // Licznik utworzonych obiektów
 function createObject() {
     if (objects.length < maxObjects) { // Sprawdź, czy liczba obiektów nie przekroczyła limitu
       const object = {
@@ -103,7 +122,15 @@ function createObject() {
         image: new Image(),
         velocityY: objectSpeed + (level * 0.1) + Math.random() * 2 // Losowa prędkość spadania obiektu
       };
-      object.image.src = 'suitcase.png';
+      object.image.src = 'cookie.png';
+      if (objectCounter % 10 !== 0 || objectCounter === 0) {
+          object.image.src = 'cookie.png'; // Obrazek walizki
+    } else {
+          object.image.src = 'heart.png'; // Obrazek serca
+          object.height = 35;
+      }
+    
+      objectCounter++;
       objects.push(object);
     }
     else {maxObjects += 0.0001}
@@ -131,6 +158,7 @@ function removeObjects() {
 
 function dropHeart() {
   if (heartIcons.length > 0) {
+    console.log(heartIcons)
     heartContainer.removeChild(heartIcons[0]);
     heartIcons.shift();
   }
@@ -144,6 +172,8 @@ function gameOver() {
   isGameRunning = false; // Ustaw flagę isGameRunning na false, aby zatrzymać animację
   cancelAnimationFrame(animationId);
   gameOverElement.style.display = 'flex';
+  refreshIcon.style.display = 'flex';
+
 }
 function updateLevel() {
     // if (caughtCount >= 30) {
@@ -210,11 +240,14 @@ document.querySelector('.wrapper').appendChild(gameOverElement);
 const refreshIcon = document.createElement('img');
 refreshIcon.src = 'refresh.png';
 refreshIcon.classList.add('refresh_icon');
+gameOverElement.appendChild(refreshIcon);
 
 refreshIcon.addEventListener('click', restartGame);
 
 function restartGame() {
   gameOverElement.style.display = 'none';
+  refreshIcon.style.display = 'none';
+  isGameRunning = true; // Dodaj tę linię, aby włączyć animację po kliknięciu przycisku restartu
   resetGame();
   animate();
 }
@@ -232,15 +265,6 @@ function resetGame() {
 
 }
 
-function createHeartIcons() {
-  for (let i = 0; i < 5; i++) {
-    let heartIcon = document.createElement('img');
-    heartIcon.src = 'heart.png';
-    heartIcon.classList.add('heart-icon');
-    heartIcons.push(heartIcon);
-    heartContainer.appendChild(heartIcon);
-  }
-}
 createHeartIcons()
 
 function updateObjectInterval() {
