@@ -34,7 +34,7 @@ const player = {
   dx: 2,
 };
 
-const objects = [];
+let objects = [];
 
 const playerImage = new Image();
 playerImage.src = 'wojtek_player.png';
@@ -82,7 +82,7 @@ let heartIcons = [];
 const heartContainer = document.getElementById('heartContainer');
 
 function createHeartIcons() {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 10; i++) {
       let heartIcon = document.createElement('img');
       heartIcon.src = 'heart.png';
       heartIcon.classList.add('heart-icon');
@@ -213,12 +213,11 @@ function animate() {
       objects.splice(i, 1);
     }
   }
-
   drawPlayer();
   updatePlayer();
   
   
-  if (caughtCount >= 3) {
+  if (caughtCount >= 10) {
     increaseLevel();
     caughtCount = 0;
 }
@@ -254,11 +253,19 @@ function restartGame() {
 const levelElement = document.querySelector('#level');
 levelElement.textContent = "Level " + level;
 function resetGame() {
+  objects = []
   caughtCount = 0;
   droppedCount = 0;
   level = 1;
+  maxObjects = 6; // Maksymalna liczba obiektów na ekranie
+  objectCounter = 0;
+  objectIntervalBase = 1000;
+  objectInterval = objectIntervalBase // Częstotliwość generowania obiektów (w milisekundach)
+  objectSpeed = 2;
+  backgroundSpeed = 1;
   objects.length = 0;
   heartContainer.innerHTML = '';
+  levelElement.textContent = "Level " + level;
 //   createHeartIcons();
   updateObjectInterval();
   createHeartIcons()
@@ -270,6 +277,7 @@ createHeartIcons()
 function updateObjectInterval() {
   clearInterval(objectInterval);
   objectInterval = setInterval(createObject, objectIntervalBase - (level * 50));
+  console.log[objects]
 }
 
 // createHeartIcons();
