@@ -82,11 +82,7 @@ let heartIcons = [];
 const heartContainer = document.getElementById('heartContainer');
 
 function createHeartIcons() {
-<<<<<<< HEAD
     for (let i = 0; i < 5; i++) {
-=======
-    for (let i = 0; i < 10; i++) {
->>>>>>> 5a52a527e4eb4ee89f55365dcbf2b6133b634fcf
       let heartIcon = document.createElement('img');
       heartIcon.src = 'heart.png';
       heartIcon.classList.add('heart-icon');
@@ -126,15 +122,9 @@ function createObject() {
         image: new Image(),
         velocityY: objectSpeed + (level * 0.1) + Math.random() * 2 // Losowa prędkość spadania obiektu
       };
-<<<<<<< HEAD
       object.image.src = 'suitcase.png';
       if (objectCounter % 10 !== 0 || objectCounter === 0) {
           object.image.src = 'suitcase.png'; // Obrazek walizki
-=======
-      object.image.src = 'cookie.png';
-      if (objectCounter % 10 !== 0 || objectCounter === 0) {
-          object.image.src = 'cookie.png'; // Obrazek walizki
->>>>>>> 5a52a527e4eb4ee89f55365dcbf2b6133b634fcf
     } else {
           object.image.src = 'heart.png'; // Obrazek serca
           object.height = 35;
@@ -260,10 +250,7 @@ function restartGame() {
   console.log('restart')
   gameOverElement.style.display = 'none';
   refreshIcon.style.display = 'none';
-<<<<<<< HEAD
-=======
   isGameRunning = true; // Dodaj tę linię, aby włączyć animację po kliknięciu przycisku restartu
->>>>>>> 5a52a527e4eb4ee89f55365dcbf2b6133b634fcf
   resetGame();
   animate();
   updateObjectInterval();
