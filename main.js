@@ -5,7 +5,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const backgroundImage = new Image();
-backgroundImage.src = 'bg.png';
+backgroundImage.src = 'chuteBg.png';
 
 let level = 1;
 let backgroundSpeed = 1; // Prędkość przesuwania tła
@@ -28,16 +28,17 @@ function drawBackground() {
 
 const player = {
   x: canvas.width / 2,
-  y: canvas.height - 180,
-  width: 400,
-  height: 150,
+  y: canvas.height - 80,
+  width: 700,
+  height: 100,
   dx: 2,
 };
 
 let objects = [];
 
 const playerImage = new Image();
-playerImage.src = 'wojtek_player.png';
+playerImage.src = 'bar.svg';
+playerImage.style.width = '600px'
 
 function drawPlayer() {
   ctx.drawImage(playerImage, player.x, player.y, player.width, player.height);
