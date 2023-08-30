@@ -30,7 +30,7 @@ const player = {
   x: canvas.width / 2,
   y: canvas.height - 80,
   width: 700,
-  height: 100,
+  height: 50,
   dx: 2,
 };
 
