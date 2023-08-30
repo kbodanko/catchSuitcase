@@ -5,7 +5,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const backgroundImage = new Image();
-backgroundImage.src = 'chuteBg.png';
+backgroundImage.src = 'bg.png';
 
 let level = 1;
 let backgroundSpeed = 1; // Prędkość przesuwania tła
@@ -28,17 +28,19 @@ function drawBackground() {
 
 const player = {
   x: canvas.width / 2,
-  y: canvas.height - 50,
-  width: 600,
-  height: 20,
+  y: canvas.height - 180,
+  width: 400,
+  height: 150,
   dx: 2,
 };
 
-const objects = [];
+let objects = [];
+
+const playerImage = new Image();
+playerImage.src = 'wojtek_player.png';
 
 function drawPlayer() {
-  ctx.fillStyle = '#FA511E';
-  ctx.fillRect(player.x, player.y, player.width, player.height);
+  ctx.drawImage(playerImage, player.x, player.y, player.width, player.height);
 }
 
 function clearScreen() {
@@ -80,7 +82,11 @@ let heartIcons = [];
 const heartContainer = document.getElementById('heartContainer');
 
 function createHeartIcons() {
+<<<<<<< HEAD
     for (let i = 0; i < 5; i++) {
+=======
+    for (let i = 0; i < 10; i++) {
+>>>>>>> 5a52a527e4eb4ee89f55365dcbf2b6133b634fcf
       let heartIcon = document.createElement('img');
       heartIcon.src = 'heart.png';
       heartIcon.classList.add('heart-icon');
@@ -120,9 +126,15 @@ function createObject() {
         image: new Image(),
         velocityY: objectSpeed + (level * 0.1) + Math.random() * 2 // Losowa prędkość spadania obiektu
       };
+<<<<<<< HEAD
       object.image.src = 'suitcase.png';
       if (objectCounter % 10 !== 0 || objectCounter === 0) {
           object.image.src = 'suitcase.png'; // Obrazek walizki
+=======
+      object.image.src = 'cookie.png';
+      if (objectCounter % 10 !== 0 || objectCounter === 0) {
+          object.image.src = 'cookie.png'; // Obrazek walizki
+>>>>>>> 5a52a527e4eb4ee89f55365dcbf2b6133b634fcf
     } else {
           object.image.src = 'heart.png'; // Obrazek serca
           object.height = 35;
@@ -212,12 +224,11 @@ function animate() {
       objects.splice(i, 1);
     }
   }
-
   drawPlayer();
   updatePlayer();
   
   
-  if (caughtCount >= 3) {
+  if (caughtCount >= 10) {
     increaseLevel();
     caughtCount = 0;
 }
@@ -249,6 +260,10 @@ function restartGame() {
   console.log('restart')
   gameOverElement.style.display = 'none';
   refreshIcon.style.display = 'none';
+<<<<<<< HEAD
+=======
+  isGameRunning = true; // Dodaj tę linię, aby włączyć animację po kliknięciu przycisku restartu
+>>>>>>> 5a52a527e4eb4ee89f55365dcbf2b6133b634fcf
   resetGame();
   animate();
   updateObjectInterval();
@@ -258,11 +273,19 @@ function restartGame() {
 const levelElement = document.querySelector('#level');
 levelElement.textContent = "Level " + level;
 function resetGame() {
+  objects = []
   caughtCount = 0;
   droppedCount = 0;
   level = 1;
+  maxObjects = 6; // Maksymalna liczba obiektów na ekranie
+  objectCounter = 0;
+  objectIntervalBase = 1000;
+  objectInterval = objectIntervalBase // Częstotliwość generowania obiektów (w milisekundach)
+  objectSpeed = 2;
+  backgroundSpeed = 1;
   objects.length = 0;
   heartContainer.innerHTML = '';
+  levelElement.textContent = "Level " + level;
 //   createHeartIcons();
   updateObjectInterval();
   createHeartIcons()
@@ -274,6 +297,7 @@ createHeartIcons()
 function updateObjectInterval() {
   clearInterval(objectInterval);
   objectInterval = setInterval(createObject, objectIntervalBase - (level * 50));
+  console.log[objects]
 }
 
 // createHeartIcons();
